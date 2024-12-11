@@ -1,0 +1,6 @@
+# pool_dataset.yaml
+train: dataset/images/train
+val: dataset/images/val
+
+nc: 1  # Number of classes (1 for "pool")
+names: ['pool']
