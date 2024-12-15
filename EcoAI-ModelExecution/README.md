@@ -3,19 +3,34 @@
 Welcome to the **Pool Detection Project Model-Execution-Part**, where technology meets environmental care. This initiative harnesses the power of cutting-edge AI to detect swimming pools from satellite imagery, paving the way for smarter, greener urban planning and resource management.
 
 
-## Steps of the model Execution :
+
+## Mdel Execution :
 
 The detection output will include:  
 - **Images with Bounding Boxes**: The detected objects will be highlighted with bounding boxes on the images.  
 - **A TXT File**: This file contains the coordinates of the bounding boxes within the image.
 
-### Visual Example
-Here's an exemple of the detection:
+
+
+### Command of Execution
+
+ ```
+python detect.py --weights runs/train/exp2/weights/best.pt --img 640 --source \new --save-txt
+                                                                      
+```
+### Results 
+
+The results will be saved in the 'runs\detect\exp' directory
+
+1. Here's an exemple of the detection:
 
 ![LabelImg Annotation Example](zone25.jpg)
 
-### Tips for Annotation
-- **Zoom in** to improve accuracy, especially for small or partially visible pools.
+2. Original YOLO output file (`labels/*.txt`).
+'''
+<class_id> <x_center> <y_center> <width> <height>
+'''
 
-----------------------------------------------------------------------
+3. A new file (`labels/*_pixels.txt`) containing the bounding box coordinates in ***pixel format***.
+
 
