@@ -251,23 +251,32 @@ def run(
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
 
                 # Write results
+                # Write results
                 for *xyxy, conf, cls in reversed(det):
                     c = int(cls)  # integer class
                     label = names[c] if hide_conf else f"{names[c]}"
                     confidence = float(conf)
-                    confidence_str = f"{confidence:.2f}"
-
+                    
+                    # Calculate normalized YOLO format (already implemented)
+                    coords = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()  # normalized xywh
                     if save_csv:
                         write_to_csv(p.name, label, confidence_str)
 
-                    if save_txt:  # Write to file
-                        if save_format == 0:
-                            coords = (
-                                (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()
-                            )  # normalized xywh
-                        else:
-                            coords = (torch.tensor(xyxy).view(1, 4) / gn).view(-1).tolist()  # xyxy
-                        line = (cls, *coords, conf) if save_conf else (cls, *coords)  # label format
+                    # Calculate pixel coordinates
+                    x_center = coords[0] * im0.shape[1]  # x_center in pixels
+                    y_center = coords[1] * im0.shape[0]  # y_center in pixels
+                    box_width = coords[2] * im0.shape[1]  # width in pixels
+                    box_height = coords[3] * im0.shape[0]  # height in pixels
+
+                    # Print or save pixel coordinates
+                    LOGGER.info(f"Bounding Box (pixels): x_center={x_center:.2f}, y_center={y_center:.2f}, width={box_width:.2f}, height={box_height:.2f}")
+
+                    # Save to file if needed
+                    with open(f"{txt_path}_pixels.txt", "a") as f:
+                        f.write(f"{cls} {x_center:.2f} {y_center:.2f} {box_width:.2f} {box_height:.2f}\n")
+
+                    if save_txt:  # Original save_txt logic
+                        line = (cls, *coords, conf) if save_conf else (cls, *coords)
                         with open(f"{txt_path}.txt", "a") as f:
                             f.write(("%g " * len(line)).rstrip() % line + "\n")
 
