@@ -1,4 +1,4 @@
-,## Data Augmentation for YOLOv5 Training and the result of the new training 
+## Data Augmentation for YOLOv5 Training and the result of the new training 
 
 ## Overview
 This data augmentation was performed to enhance the YOLOv5 model training using a small initial dataset . 
