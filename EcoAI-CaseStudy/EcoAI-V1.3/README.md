@@ -1,8 +1,9 @@
-,## Data Augmentation for YOLOv5 Training and the result of the new training 
+## Data Augmentation for YOLOv5 Training + results of the new training 
 
-## Overview
+---
+
 This data augmentation was performed to enhance the YOLOv5 model training using a small initial dataset . 
-This process expanded the dataset to 60 images by applying various augmentation techniques.
+This process expanded the dataset from 5 to 60 images by applying various augmentation techniques.
 The augmented dataset aimed to improve the model’s performance, given the limited original dataset size.
 
 ---
@@ -51,7 +52,6 @@ The following augmentation methods were applied:
    ```
 4. **Result**:
    - The dataset size was increased (from 5 to 60 images for my case)
-   - Augmented images retained the YOLO-format annotation compatibility.
 
 ---
 ## training Command :
